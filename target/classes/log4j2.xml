@@ -1,0 +1,16 @@
+<Configuration status="debug" name="IssueReported" packages="">
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>
+        </Console>
+    </Appenders>
+    <AsyncRoot level="DEBUG">
+        <AppenderRef ref="stdout" />
+        <AppenderRef ref="fout"/>
+    </AsyncRoot>
+    <File name="fout" fileName="IssueReported.log" append="true">
+        <PatternLayout>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%nw</Pattern>
+        </PatternLayout>
+    </File>
+</Configuration>

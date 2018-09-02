@@ -1,2 +1,2 @@
-# Apollon
-This project is for the creation of an automated library that posts issues automatically to the corresponding repository
+# IssueReported
+This library is to be used as a tool that automaticly generates Error reports and uploads them to the respective repo as an Issue.
