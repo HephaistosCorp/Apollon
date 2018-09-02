@@ -1,8 +1,7 @@
-package ch.rs.IssueReported.reporter;
+package ch.hephaistos.utilities.apollon.reporter;
 
-import ch.rs.IssueReported.credentials.Account;
-import ch.rs.IssueReported.reportGenerator.IssueReport;
-import ch.rs.IssueReported.tools.text.CensorLevel;
+import ch.hephaistos.utilities.apollon.reportGenerator.IssueReport;
+import ch.hephaistos.utilities.apollon.tools.text.CensorLevel;
 import org.kohsuke.github.*;
 
 import java.io.IOException;
@@ -23,11 +22,9 @@ public class ReportingUnit {
     GitHub github;
     GHRepository repo;
 
-    public ReportingUnit(Account account) {
-        this.username = account.getUsername();
-        password = account.getPassword();
+    public ReportingUnit(String oAuthKey) {
         try {
-            github = GitHub.connectUsingPassword(username, password);
+            GitHub.connectUsingOAuth(oAuthKey);
         } catch (IOException e){
             System.out.println("reportingUnitNew " + e.getMessage());
         }
@@ -36,7 +33,7 @@ public class ReportingUnit {
     public void setBranch(String branchName){
         try {
             this.branch = repo.getBranch(branchName);
-            GHContent content = branch.getOwner().getFileContent("Initializer.java");
+            GHContent content = branch.getOwner().getFileContent("Apollon.java");
             System.out.println(content.getHtmlUrl());
         } catch (IOException e) {
             System.out.println("SetBranch threw an Exception " + e.getMessage());

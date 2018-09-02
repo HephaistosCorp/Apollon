@@ -1,4 +1,4 @@
-package ch.rs.IssueReported.tools.text;
+package ch.hephaistos.utilities.apollon.tools.text;
 
 public enum DetailLevel {
 

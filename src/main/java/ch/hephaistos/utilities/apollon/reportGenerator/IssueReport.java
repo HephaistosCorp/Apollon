@@ -1,7 +1,7 @@
-package ch.rs.IssueReported.reportGenerator;
+package ch.hephaistos.utilities.apollon.reportGenerator;
 
-import ch.rs.IssueReported.tools.text.CensorLevel;
-import ch.rs.IssueReported.tools.text.DetailLevel;
+import ch.hephaistos.utilities.apollon.tools.text.CensorLevel;
+import ch.hephaistos.utilities.apollon.tools.text.DetailLevel;
 
 public class IssueReport {
 
