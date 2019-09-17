@@ -5,7 +5,7 @@ import ch.hephaistos.utilities.apollon.reporting.ReportingUnit;
 import ch.hephaistos.utilities.apollon.reporting.generation.text.CensoringLevel;
 import ch.hephaistos.utilities.apollon.reporting.generation.text.DetailLevel;
 
-public class Apollon implements Runnable {
+public class Apollon implements Thread.UncaughtExceptionHandler {
 
     private static final String STANDARD_BRANCH = "master";
     private String OAuthKey;
@@ -25,19 +25,6 @@ public class Apollon implements Runnable {
         this.OAuthKey = OAuthKey;
         this.repoName = repoName;
         this.branch = branch;
-    }
-
-    @Override
-    public void run() {
-
-
-        /**
-         rUnit.setBranch("IssueTesting");
-         rUnit.reportIssueToRepository(new NullPointerException("null"));
-         rUnit.reportIssueToRepository(new IOException("No rights to do this"));
-         rUnit.reportIssueToRepository(new IndexOutOfBoundsException("4"));
-         **/
-
     }
 
     private void setupReportingUnit() {
@@ -68,5 +55,10 @@ public class Apollon implements Runnable {
     public synchronized void addExceptionToReport(Exception exception, DetailLevel detailLevel,
                                                   CensoringLevel censoringLevel){
 
+    }
+
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        System.out.println("exception thrown");
     }
 }
