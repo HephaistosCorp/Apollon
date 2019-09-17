@@ -15,12 +15,10 @@ import java.io.IOException;
 
 public class ReportingUnit {
 
-    private String username;
-    private String password;
     private CensorLevel censoringMode = CensorLevel.NORMAL;
     private GHBranch branch;
-    GitHub github;
-    GHRepository repo;
+    private GitHub github;
+    private GHRepository repo;
 
     public ReportingUnit(String oAuthKey) {
         try {
