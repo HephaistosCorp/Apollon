@@ -11,16 +11,13 @@ public class IssueReport {
     private final String CENSORING_MODE = "The set Censor Mode is: ";
     private final String CAUSE = "The cause for this Exception was: ";
     private final String TITLE_FORMATTING = "##";
-    
+
     private final String NEW_ISSUE_TITLE ="Issue ";
-    
+
     private final String ISSUE_HASH = "[IH]";
-    
-    private DetailLevel textDetail = DetailLevel.DETAILED;
-    private CensoringLevel censorMode = CensoringLevel.NORMAL;
 
     private Exception savedException;
-    
+
     private String title;
 
     /**
@@ -30,9 +27,9 @@ public class IssueReport {
      * and the issue will still report to the already existing issue on Github.
      */
     private int issueHash;
-    
+
     private final String NEWLINE = System.lineSeparator();
-    
+
     private StringBuilder textGenerator;
 
     public IssueReport(Exception e){
@@ -40,23 +37,23 @@ public class IssueReport {
         generateIssueHash();
     }
 
-    public void generateNewIssueText(){
-        generateIssueStringBuilder();
+    public void generateNewIssueText(CensoringLevel censoringLevel, DetailLevel detailLevel){
+        generateIssueStringBuilder(censoringLevel, detailLevel);
         generateIssueTitle();
-        generateBody();
+        generateBody(detailLevel);
     };
-    
-    public void generateCommentOnIssueText(){
-        generateCommentStringBuilder();
-        generateBody();
+
+    public void generateCommentOnIssueText(CensoringLevel censoringLevel, DetailLevel detailLevel){
+        generateCommentStringBuilder(censoringLevel, detailLevel);
+        generateBody(detailLevel);
     };
-    
-    private void generateBody(){
+
+    private void generateBody(DetailLevel detailLevel){
         for(StackTraceElement ste : savedException.getStackTrace()){
-            textGenerator.append(textDetail.getDetails(ste));
+            textGenerator.append(detailLevel.getDetails(ste));
         }
     }
-    
+
     private void generateIssueTitle(){
         title = new StringBuilder()
                 .append(NEW_ISSUE_TITLE)
@@ -65,73 +62,61 @@ public class IssueReport {
                 .append(issueHash)
                 .toString();
     }
-    
-    private void generateIssueStringBuilder(){
+
+    private void generateIssueStringBuilder(CensoringLevel censoringLevel, DetailLevel detailLevel){
         textGenerator = new StringBuilder()
-                            .append(NEW_ISSUE)
-                            .append(savedException.getClass())
-                            .append(NEWLINE)
-                            .append(CAUSE)
-                            .append(censorMode.getCausingObject(savedException))
-                            .append(NEWLINE)
-                            .append(DETAIL_LEVEL)
-                            .append(textDetail.name())
-                            .append(NEWLINE)
-                            .append(CENSORING_MODE)
-                            .append(censorMode.name())
-                            .append(NEWLINE)
-                            .append(TITLE_FORMATTING)
-                            .append(NEWLINE);
+                .append(NEW_ISSUE)
+                .append(savedException.getClass())
+                .append(NEWLINE)
+                .append(CAUSE)
+                .append(censoringLevel.getCausingObject(savedException))
+                .append(NEWLINE)
+                .append(DETAIL_LEVEL)
+                .append(detailLevel.name())
+                .append(NEWLINE)
+                .append(CENSORING_MODE)
+                .append(censoringLevel.name())
+                .append(NEWLINE)
+                .append(TITLE_FORMATTING)
+                .append(NEWLINE);
     }
-    
-    private void generateCommentStringBuilder(){
+
+    private void generateCommentStringBuilder(CensoringLevel censoringLevel, DetailLevel detailLevel){
         textGenerator = new StringBuilder()
-                            .append(EXISTING_ISSUE)
-                            .append(savedException.getClass())
-                            .append(NEWLINE)
-                            .append(CAUSE)
-                            .append(censorMode.getCausingObject(savedException))
-                            .append(NEWLINE)
-                            .append(DETAIL_LEVEL)
-                            .append(textDetail.name())
-                            .append(NEWLINE)
-                            .append(CENSORING_MODE)
-                            .append(censorMode.name())
-                            .append(NEWLINE)
-                            .append(TITLE_FORMATTING)
-                            .append(NEWLINE);
+                .append(EXISTING_ISSUE)
+                .append(savedException.getClass())
+                .append(NEWLINE)
+                .append(CAUSE)
+                .append(censoringLevel.getCausingObject(savedException))
+                .append(NEWLINE)
+                .append(DETAIL_LEVEL)
+                .append(detailLevel.name())
+                .append(NEWLINE)
+                .append(CENSORING_MODE)
+                .append(censoringLevel.name())
+                .append(NEWLINE)
+                .append(TITLE_FORMATTING)
+                .append(NEWLINE);
     }
-    
+
     private void generateIssueHash(){
         issueHash = new StringBuilder()
-                        .append(savedException.getClass())
-                        .append(savedException.getStackTrace()[0].getLineNumber())
-                        .append(savedException.getStackTrace()[0].getClassName())
-                        .toString().hashCode();
+                .append(savedException.getClass())
+                .append(savedException.getStackTrace()[0].getLineNumber())
+                .append(savedException.getStackTrace()[0].getClassName())
+                .toString().hashCode();
     }
 
     public String getBody(){
         return textGenerator.toString();
     }
-    
+
     public int getIssueHash(){
         return issueHash;
     }
 
     public String getTitle(){
         return title;
-    }
-
-    private String getCause(Exception e){
-        return censorMode.getCausingObject(e);
-    }
-
-    public void setCensorMode(CensoringLevel mode){
-        censorMode = mode;
-    }
-
-    public void setDetailLevel(DetailLevel level){ 
-        textDetail = level;
     }
 
 }
