@@ -5,6 +5,8 @@ import ch.hephaistos.utilities.apollon.reporting.ReportingUnit;
 import ch.hephaistos.utilities.apollon.reporting.generation.text.CensoringLevel;
 import ch.hephaistos.utilities.apollon.reporting.generation.text.DetailLevel;
 
+import java.io.IOException;
+
 public class Apollon implements Thread.UncaughtExceptionHandler {
 
     private static final String STANDARD_BRANCH = "master";
@@ -14,18 +16,18 @@ public class Apollon implements Thread.UncaughtExceptionHandler {
     private ReportingUnit reportingUnit;
 
 
-
     public Apollon(String OAuthKey, String repoOwner, String repoName) {
         this(OAuthKey, repoOwner, repoName, STANDARD_BRANCH);
     }
 
 
     public Apollon(String OAuthKey, String repoOwner, String repoName, String branch) {
-        reportingUnit = new ReportingUnit();
-    }
-
-    private void setupReportingUnit() {
-        reporter = new ReportingUnit("key");
+        try {
+            reportingUnit = new ReportingUnit(OAuthKey, repoOwner, repoName, branch);
+        } catch (IOException ioe) {
+            reportingUnit = null;
+            System.err.println("Failed to create the reporting unit: " + ioe.toString());
+        }
     }
 
     /**
@@ -37,8 +39,10 @@ public class Apollon implements Thread.UncaughtExceptionHandler {
      *
      * @param exception the thrown exception to be reported
      */
-    public synchronized void reportException(Exception exception){
+    public synchronized void reportException(Exception exception) {
+        if(reportingUnit != null){
 
+        }
     }
 
     /**
@@ -46,17 +50,21 @@ public class Apollon implements Thread.UncaughtExceptionHandler {
      * The exception will be reported according to the given {@link DetailLevel DetailLevel}
      * and {@link CensoringLevel}. If you want to use the set options, use {@link #reportException(Exception)}
      *
-     * @param exception the thrown exception to be reported
-     * @param detailLevel the {@link DetailLevel} of the report
+     * @param exception      the thrown exception to be reported
+     * @param detailLevel    the {@link DetailLevel} of the report
      * @param censoringLevel the {@link CensoringLevel} of the report
      */
     public synchronized void reportException(Exception exception, DetailLevel detailLevel,
-                                                  CensoringLevel censoringLevel){
+                                             CensoringLevel censoringLevel) {
+        if(reportingUnit != null){
 
+        }
     }
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
+        if(reportingUnit != null){
 
+        }
     }
 }
