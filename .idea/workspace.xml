@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c0c3d7cd-6fc5-4378-9ae7-3ffc3ad4f30b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/Apollon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/Apollon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/ReportingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/ReportingUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,10 +21,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/Apollon.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+            <state relative-caret-position="679">
+              <caret line="113" column="30" selection-start-line="113" selection-start-column="30" selection-end-line="113" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4538#4539#0" expanded="true" />
+                <element signature="e#4571#4572#0" expanded="true" />
+                <element signature="e#3077#3078#0" expanded="true" />
+                <element signature="e#3108#3109#0" expanded="true" />
+                <element signature="e#4728#4729#0" expanded="true" />
+                <element signature="e#4765#4766#0" expanded="true" />
+                <element signature="e#3200#3201#0" expanded="true" />
+                <element signature="e#3251#3252#0" expanded="true" />
+                <element signature="e#3351#3352#0" expanded="true" />
+                <element signature="e#3395#3396#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -33,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="187">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -75,7 +85,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/generation/text/DetailLevel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
+            <state relative-caret-position="-769">
               <caret line="8" column="45" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="45" />
             </state>
           </provider>
@@ -134,8 +144,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/generation/text/CensorLevel.java" />
         <option value="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/generation/text/CensoringLevel.java" />
         <option value="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/generation/IssueReport.java" />
-        <option value="$PROJECT_DIR$/src/test/java/main.java" />
         <option value="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/ReportingUnit.java" />
+        <option value="$PROJECT_DIR$/src/test/java/main.java" />
         <option value="$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/Apollon.java" />
       </list>
     </option>
@@ -468,20 +478,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/generation/text/DetailLevel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="45" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/ReportingUnit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
@@ -495,12 +491,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/reporting/generation/text/DetailLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-769">
+          <caret line="8" column="45" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ch/hephaistos/utilities/apollon/Apollon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+        <state relative-caret-position="679">
+          <caret line="113" column="30" selection-start-line="113" selection-start-column="30" selection-end-line="113" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#4538#4539#0" expanded="true" />
+            <element signature="e#4571#4572#0" expanded="true" />
+            <element signature="e#3077#3078#0" expanded="true" />
+            <element signature="e#3108#3109#0" expanded="true" />
+            <element signature="e#4728#4729#0" expanded="true" />
+            <element signature="e#4765#4766#0" expanded="true" />
+            <element signature="e#3200#3201#0" expanded="true" />
+            <element signature="e#3251#3252#0" expanded="true" />
+            <element signature="e#3351#3352#0" expanded="true" />
+            <element signature="e#3395#3396#0" expanded="true" />
           </folding>
         </state>
       </provider>
