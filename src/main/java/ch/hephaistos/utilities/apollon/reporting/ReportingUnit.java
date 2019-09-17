@@ -28,26 +28,6 @@ public class ReportingUnit {
         }
     }
 
-    public void setBranch(String branchName){
-        try {
-            this.branch = repo.getBranch(branchName);
-            GHContent content = branch.getOwner().getFileContent("Apollon.java");
-            System.out.println(content.getHtmlUrl());
-        } catch (IOException e) {
-            System.out.println("SetBranch threw an Exception " + e.getMessage());
-        }
-    }
-
-
-    public void setRepository(String owner, String repositoryName){
-        repo = getRepository(owner, repositoryName);
-            try {
-                branch = repo.getBranch(repo.getDefaultBranch());
-            } catch (IOException e) {
-                System.out.println("set Repo Error : " + e.getMessage());
-            }
-    }
-
     private GHRepository getRepository(String owner, String repository){
         try {
             return github.getRepository(owner + "/" + repository);
