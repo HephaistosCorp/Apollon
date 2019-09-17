@@ -8,14 +8,14 @@ public enum CensoringLevel {
     NORMAL,
 
     /**
-     * Returns a censored String of the cause. This is usefull when handling stuff like
+     * Returns a censored String of the cause. This is useful when handling stuff like
      * filenames, paths, credentials.
      */
     CENSORED {
 
         @Override
         public String getCausingObject(Exception e){
-            return "<censored>";
+            return "|||||CENSORED|||||";
         }
 
     };
