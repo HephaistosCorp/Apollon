@@ -82,7 +82,7 @@ public class ReportingUnit {
             } else {
                 int counter = 0;
                 for(GHIssueComment comment :issue.getComments()){
-                    if(comment.getUser().getName().equals(username)) counter++;
+                    if(comment.getUser().getLogin().equals(username)) counter++;
                 }
                 return counter >= commentLimit;
             }
