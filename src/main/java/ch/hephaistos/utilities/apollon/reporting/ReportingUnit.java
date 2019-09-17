@@ -2,6 +2,7 @@ package ch.hephaistos.utilities.apollon.reporting;
 
 import ch.hephaistos.utilities.apollon.reporting.generation.IssueReport;
 import ch.hephaistos.utilities.apollon.reporting.generation.text.CensoringLevel;
+import ch.hephaistos.utilities.apollon.reporting.generation.text.DetailLevel;
 import org.kohsuke.github.*;
 
 import java.io.IOException;
@@ -14,27 +15,26 @@ import java.io.IOException;
 
 public class ReportingUnit {
 
-    private CensoringLevel censoringMode = CensoringLevel.NORMAL;
     private GHBranch branch;
     private GitHub reportingKey;
     private GHRepository repository;
+    private int commentLimit;
+    private String username;
 
     public ReportingUnit(String OAuthKey, String repoOwner, String repoName, String branchName) throws IOException {
+        this(OAuthKey, repoOwner, repoName, branchName, 0, "");
+    }
+
+    public ReportingUnit(String OAuthKey, String repoOwner, String repoName, String branchName,
+                         int commentLimit, String username) throws IOException {
         reportingKey = GitHub.connectUsingOAuth(OAuthKey);
         repository = reportingKey.getRepository(repoOwner + "/" + repoName);
         branch = repository.getBranch(branchName);
+        this.commentLimit = commentLimit;
+        this.username = username;
     }
 
-    private GHRepository getRepository(String owner, String repository) {
-        try {
-            return reportingKey.getRepository(owner + "/" + repository);
-        } catch (IOException e) {
-            System.out.println("getRepository " + e.getMessage());
-            return null;
-        }
-    }
-
-    private GHIssue issueExist(int hashCode) {
+    private GHIssue getCorrespondingIssue(int hashCode) {
         try {
             for (GHIssue issue : repository.getIssues(GHIssueState.OPEN)) {
                 //IF YOU USE BRACES READ UP ON FORMATTING FIRST
@@ -44,53 +44,52 @@ public class ReportingUnit {
             }
             return new GHIssue();
         } catch (IOException e) {
-            System.out.println("issueExist: " + e.getMessage());
+            System.err.println("There was an error whilst searching for existing issues. " +
+                    "Creating a new one: " + e.getMessage());
             return new GHIssue();
         }
     }
 
-
-    public void reportIssueToRepository(Exception exception) {
+    public void createIssueFromException(Exception exception, DetailLevel detailLevel,
+                                         CensoringLevel censoringLevel) {
         IssueReport issueReport = new IssueReport(exception);
-        GHIssue issue = issueExist(issueReport.getIssueHash());
+        GHIssue issue = getCorrespondingIssue(issueReport.getIssueHash());
         if (issue.getTitle() != null) {
             try {
-                issueReport.generateCommentOnIssueText();
-                issue.comment(issueReport.getBody());
+                if (!hasReachedCommentLimit(issue)) {
+                    issueReport.generateCommentOnIssueText(censoringLevel, detailLevel);
+                    issue.comment(issueReport.getBody());
+                }
             } catch (IOException e) {
-                System.out.println("reportIssueToRepository " + e.getMessage());
+                System.err.println("Couldn't comment on existing issue " + e.getMessage());
             }
-            return;
+        } else {
+            try {
+                issueReport.generateNewIssueText(censoringLevel, detailLevel);
+                GHIssueBuilder issueBuilder = repository.createIssue(issueReport.getTitle());
+                issueBuilder.body(issueReport.getBody());
+                issueBuilder.create();
+            } catch (IOException e) {
+                System.err.println("Couldn't create a new issue in the repo: " + e.getMessage());
+            }
         }
+    }
+
+    private boolean hasReachedCommentLimit(GHIssue issue) {
         try {
-            issueReport.generateNewIssueText();
-            GHIssueBuilder issueBuilder = repository.createIssue(issueReport.getTitle());
-            issueBuilder.body(issueReport.getBody());
-            issueBuilder.create();
-        } catch (IOException e) {
-            System.out.println("reportIssueToRepository " + e.getMessage());
+            if (issue.getComments().size() < commentLimit || commentLimit == 0) {
+                return false;
+            } else {
+                int counter = 0;
+                for(GHIssueComment comment :issue.getComments()){
+                    if(comment.getUser().getName().equals(username)) counter++;
+                }
+                return counter >= commentLimit;
+            }
+        } catch (IOException ioe) {
+            System.err.println("Could't access the comments of the Issue. Aborting reporting: " + ioe.getMessage());
+            return false;
         }
     }
 
-    private String getCause(Exception e) {
-        return censoringMode.getCausingObject(e);
-    }
-
-
-    private GHIssue getIssue(int issueId) {
-        try {
-            return repository.getIssue(issueId);
-        } catch (IOException e) {
-            System.out.println("getIssue " + e.getMessage());
-            return new GHIssue();
-        }
-    }
-
-    public void setCensoring(CensoringLevel mode) {
-        censoringMode = mode;
-    }
-
-    private boolean checkErrorHash() {
-        return true;
-    }
 }
