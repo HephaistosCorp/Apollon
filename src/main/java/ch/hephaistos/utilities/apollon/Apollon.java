@@ -99,7 +99,7 @@ public class Apollon implements Thread.UncaughtExceptionHandler {
 
     private void reportExceptionAsIssue(Exception exception, DetailLevel detailLevel,
                                         CensoringLevel censoringLevel){
-
+        reportingUnit.createIssueFromException(exception, detailLevel, censoringLevel);
     }
 
     public DetailLevel getDetailLevel(){
