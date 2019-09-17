@@ -17,12 +17,14 @@ public class ReportingUnit {
 
     private CensoringLevel censoringMode = CensoringLevel.NORMAL;
     private GHBranch branch;
-    private GitHub github;
-    private GHRepository repo;
+    private GitHub reportingKey;
+    private GHRepository repository;
 
-    public ReportingUnit(String oAuthKey) {
+public ReportingUnit(String OAuthKey, String repoOwner, String repoName, String branchName) {
         try {
-            GitHub.connectUsingOAuth(oAuthKey);
+            reportingKey = GitHub.connectUsingOAuth(OAuthKey);
+            repository = reportingKey.getRepository(repoOwner + "/" + repoName);
+            branch = repository.getBranch(branchName);
         } catch (IOException e){
             System.out.println("reportingUnitNew " + e.getMessage());
         }
@@ -30,7 +32,7 @@ public class ReportingUnit {
 
     private GHRepository getRepository(String owner, String repository){
         try {
-            return github.getRepository(owner + "/" + repository);
+            return reportingKey.getRepository(owner + "/" + repository);
         } catch (IOException e) {
             System.out.println("getRepository " + e.getMessage());
             return null;
@@ -39,7 +41,7 @@ public class ReportingUnit {
 
     private GHIssue issueExist(int hashCode){
         try {
-            for (GHIssue issue : repo.getIssues(GHIssueState.OPEN)) {
+            for (GHIssue issue : repository.getIssues(GHIssueState.OPEN)) {
                 //IF YOU USE BRACES READ UP ON FORMATTING FIRST
                 if(issue.getTitle().split("IH]")[1].equals(String.valueOf(hashCode))){
                     return  issue;
@@ -67,7 +69,7 @@ public class ReportingUnit {
         }
         try {
             issueReport.generateNewIssueText();
-            GHIssueBuilder issueBuilder = repo.createIssue(issueReport.getTitle());
+            GHIssueBuilder issueBuilder = repository.createIssue(issueReport.getTitle());
             issueBuilder.body(issueReport.getBody());
             issueBuilder.create();
         } catch (IOException e) {
@@ -82,7 +84,7 @@ public class ReportingUnit {
 
     private GHIssue getIssue(int issueId) {
         try {
-            return repo.getIssue(issueId);
+            return repository.getIssue(issueId);
         } catch (IOException e) {
             System.out.println("getIssue " + e.getMessage());
             return new GHIssue();
