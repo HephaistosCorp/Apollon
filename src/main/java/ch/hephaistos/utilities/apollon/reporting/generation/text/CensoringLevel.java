@@ -1,8 +1,6 @@
-package ch.hephaistos.utilities.apollon.tools.text;
+package ch.hephaistos.utilities.apollon.reporting.generation.text;
 
-public enum CensorLevel {
-
-
+public enum CensoringLevel {
 
     /**
      * Returns the Cause of the Exception as a String

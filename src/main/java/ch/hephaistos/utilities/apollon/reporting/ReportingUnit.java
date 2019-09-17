@@ -1,21 +1,21 @@
-package ch.hephaistos.utilities.apollon.reporter;
+package ch.hephaistos.utilities.apollon.reporting;
 
-import ch.hephaistos.utilities.apollon.reportGenerator.IssueReport;
-import ch.hephaistos.utilities.apollon.tools.text.CensorLevel;
+import ch.hephaistos.utilities.apollon.reporting.generation.IssueReport;
+import ch.hephaistos.utilities.apollon.reporting.generation.text.CensoringLevel;
 import org.kohsuke.github.*;
 
 import java.io.IOException;
 
 /**
  * https://github.com/git/git/blob/master/README#L18-L20
- * ^use above link to highlight lines in code. This will allow the reporter
+ * ^use above link to highlight lines in code. This will allow the reporting
  * to create direct links to the line that caused the issue.
  *
  */
 
 public class ReportingUnit {
 
-    private CensorLevel censoringMode = CensorLevel.NORMAL;
+    private CensoringLevel censoringMode = CensoringLevel.NORMAL;
     private GHBranch branch;
     private GitHub github;
     private GHRepository repo;
@@ -109,7 +109,7 @@ public class ReportingUnit {
         }
     }
 
-    public void setCensoring(CensorLevel mode){
+    public void setCensoring(CensoringLevel mode){
         censoringMode = mode;
     }
 

@@ -1,7 +1,7 @@
-package ch.hephaistos.utilities.apollon.reportGenerator;
+package ch.hephaistos.utilities.apollon.reporting.generation;
 
-import ch.hephaistos.utilities.apollon.tools.text.CensorLevel;
-import ch.hephaistos.utilities.apollon.tools.text.DetailLevel;
+import ch.hephaistos.utilities.apollon.reporting.generation.text.CensoringLevel;
+import ch.hephaistos.utilities.apollon.reporting.generation.text.DetailLevel;
 
 public class IssueReport {
 
@@ -14,10 +14,10 @@ public class IssueReport {
     
     private final String NEW_ISSUE_TITLE ="Issue ";
     
-    private final String ISSUE_HASH = " [IH]";
+    private final String ISSUE_HASH = "[IH]";
     
     private DetailLevel textDetail = DetailLevel.DETAILED;
-    private CensorLevel censorMode = CensorLevel.NORMAL;
+    private CensoringLevel censorMode = CensoringLevel.NORMAL;
 
     private Exception savedException;
     
@@ -126,7 +126,7 @@ public class IssueReport {
         return censorMode.getCausingObject(e);
     }
 
-    public void setCensorMode(CensorLevel mode){
+    public void setCensorMode(CensoringLevel mode){
         censorMode = mode;
     }
 

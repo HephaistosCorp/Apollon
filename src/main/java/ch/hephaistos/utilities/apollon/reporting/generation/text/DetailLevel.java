@@ -1,4 +1,4 @@
-package ch.hephaistos.utilities.apollon.tools.text;
+package ch.hephaistos.utilities.apollon.reporting.generation.text;
 
 public enum DetailLevel {
 

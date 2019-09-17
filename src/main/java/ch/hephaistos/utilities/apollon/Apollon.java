@@ -1,25 +1,28 @@
-package ch.hephaistos.utilities.apollon.libhandler;
+package ch.hephaistos.utilities.apollon;
 
 
-import ch.hephaistos.utilities.apollon.reporter.ReportingUnit;
+import ch.hephaistos.utilities.apollon.reporting.ReportingUnit;
 
 public class Apollon implements Runnable {
 
-    private String oAuthKey;
+    private static final String STANDARD_BRANCH = "master";
+    private String OAuthKey;
     private String repoName;
     private String branch;
     private ReportingUnit reporter;
 
-    public Apollon() {
+
+    
+    public Apollon(String OAuthKey, String repoName) {
+        this(OAuthKey, repoName, STANDARD_BRANCH);
     }
 
 
-    public Apollon(String oAuthKey, String repoName, String branch) {
-        this.oAuthKey = oAuthKey;
+
+    public Apollon(String OAuthKey, String repoName, String branch) {
+        this.OAuthKey = OAuthKey;
         this.repoName = repoName;
         this.branch = branch;
-        setupReportingUnit();
-
     }
 
     @Override

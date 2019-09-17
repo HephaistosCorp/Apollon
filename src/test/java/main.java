@@ -1,4 +1,4 @@
-import ch.hephaistos.utilities.apollon.libhandler.Apollon;
+import ch.hephaistos.utilities.apollon.Apollon;
 
 public class main {
 
